@@ -4,7 +4,7 @@ import pygame
 pygame.init()
 def default_music():
     """La música de ambiente por 12 horas"""
-    pygame.mixer.music.load('MÚSICA/Música_Default.mp3')
+    pygame.mixer.music.load('Música_Default.mp3')
     pygame.mixer.music.play()
     while pygame.mixer.music.get_busy():
         pygame.time.Clock().tick(10)
@@ -13,7 +13,7 @@ def default_music():
 
 def comer_sound(): 
     """Reproduce por 9 segundos el efecto de comer de minecraft"""
-    pygame.mixer.music.load('MÚSICA/Comer.mp3')
+    pygame.mixer.music.load('Comer.mp3')
     pygame.mixer.music.play()
     while pygame.mixer.music.get_busy():
         pygame.time.Clock().tick(10)
@@ -22,7 +22,7 @@ def comer_sound():
 
 def mimir_sound():
     """Reproduce por 7 segundos el sonido de dormir"""
-    pygame.mixer.music.load('MÚSICA/Mimir.mp3')
+    pygame.mixer.music.load('Mimir.mp3')
     pygame.mixer.music.play()
     while pygame.mixer.music.get_busy():
         pygame.time.Clock().tick(10)
@@ -31,7 +31,7 @@ def mimir_sound():
 
 def morir_sound():
     """Reproduce por 10 segundos plin plin plon"""
-    pygame.mixer.music.load('MÚSICA/Morir.mp3')
+    pygame.mixer.music.load('Morir.mp3')
     pygame.mixer.music.play()
     pygame.time.wait(10000)
     pygame.mixer.music.stop()
