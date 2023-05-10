@@ -11,13 +11,13 @@ def default_music():
     pygame.mixer.music.stop()
 
 
-def comer_sound(): 
+def comer_sound():
     """Reproduce por 9 segundos el efecto de comer de minecraft"""
-    pygame.mixer.music.load('Comer.mp3')
-    pygame.mixer.music.play()
+    a = pygame.mixer.Sound('Comer.mp3')
+    pygame.mixer.Sound.play(a)
     while pygame.mixer.music.get_busy():
         pygame.time.Clock().tick(10)
-    pygame.mixer.music.stop()
+    pygame.mixer.music.pause()
 
 
 def mimir_sound():
@@ -25,7 +25,7 @@ def mimir_sound():
     pygame.mixer.music.load('Mimir.mp3')
     pygame.mixer.music.play()
     while pygame.mixer.music.get_busy():
-        pygame.time.Clock().tick(10)
+        pygame.time.Clock().tick(5)
     pygame.mixer.music.stop()
 
 
