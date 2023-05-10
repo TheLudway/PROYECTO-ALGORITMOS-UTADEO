@@ -3,12 +3,13 @@ import pygame
 
 pygame.init()
 def default_music():
-    """La música de ambiente por 12 horas"""
-    pygame.mixer.music.load('Música_Default.mp3')
-    pygame.mixer.music.play()
-    while pygame.mixer.music.get_busy():
-        pygame.time.Clock().tick(10)
-    pygame.mixer.music.stop()
+    """Reproduce música de ambiente"""
+    canciones = ["Música_Default_1.mp3", "Música_Default_2.mp3", "Música_Default_3.mp3"]
+    for cancion in canciones:
+        pygame.mixer.Sound(cancion)
+        pygame.mixer.Sound.play()
+        while pygame.mixer.music.get_busy():
+            pygame.time.Clock().tick(10)
 
 
 def comer_sound():
