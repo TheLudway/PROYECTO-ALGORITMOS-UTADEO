@@ -37,3 +37,10 @@ def morir_sound():
     pygame.time.wait(10000)
     pygame.mixer.music.stop()
 
+
+def jugar_sound():
+    """Reproduce música de jugar por 9 segundos"""
+    pygame.mixer.music.load('Jugar.mp3')
+    pygame.mixer.music.play()
+    pygame.time.wait(9000)
+    pygame.mixer.music.stop()
