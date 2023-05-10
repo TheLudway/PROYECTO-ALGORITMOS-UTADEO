@@ -14,6 +14,10 @@ comer2=pygame.image.load('spriteC2.jpg')
 dormir1=pygame.image.load('dormir_1.jpg')
 dormir2=pygame.image.load('dormir_2.jpg')
 dormir3=pygame.image.load('dormir_3.jpg')
+pelota1=pygame.image.load('pelota1.jpg')
+pelota2=pygame.image.load('pelota2.jpg')
+pelota3=pygame.image.load('pelota3.jpg')
+
 
 #ubicacion personaje
 x= 130
@@ -24,12 +28,17 @@ red=(205,30,0)
 red_on= (250,40,1)
 blue=(0,0,205)
 blue_on=(135, 206, 250)
-#boton
-m= 300
-n= 410
-az= 150
-azo= 410
+green=(99,199,87)
+green_on=(68,245,49)
 
+
+#boton
+m= 200
+n= 410
+az= 100
+azo= 410
+ad= 300
+do= 410
 class gochi:
     def __init__(self):
         with open("datos.txt", "r") as dato:
@@ -58,16 +67,35 @@ class gochi:
             reloj.tick(a)
             screen.blit(comer2,(x,y+5))
             pygame.display.update()
-            reloj.tick(a)
+            
                        
-        self.salud +=10  
-        self.lleno += 20
-        self.felicidad += 5
+            self.salud +=10  
+            self.lleno += 40
+            self.felicidad += 5
 
     def jugar(self):
-        self.energia -= 10
-        self.felicidad += 20
-   
+        if boton2.collidepoint (pygame.mouse.get_pos()):
+            pygame.draw.circle(screen,(green_on),(ad,do),20)
+        if boton2.collidepoint (pygame.mouse.get_pos()) and self.energia > 10:
+            screen.blit(pelota1,(x,y+5))
+            pygame.display.update()
+            reloj.tick(a)
+            screen.blit(pelota2,(x,y+5))
+            pygame.display.update()
+            reloj.tick(a+2)
+            screen.blit(pelota3,(x,y+5))
+            pygame.display.update()
+            reloj.tick(a+2)
+            screen.blit(pelota2,(x,y+5))
+            pygame.display.update()
+            reloj.tick(a+2)
+            pygame.display.update()
+            reloj.tick(a+2)
+
+            self.energia -= 10
+            self.felicidad += 20
+        
+
     def dormir(self):
         if boton1.collidepoint (pygame.mouse.get_pos()):
             pygame.draw.circle(screen,(blue_on),(az,azo),20)
@@ -83,21 +111,31 @@ class gochi:
                 pygame.display.update()
                 musica.mimir_sound()
                
-        self.energia += 25
+                self.energia += 25
        
 
     def limite(self):
-        if tamama.salud > 100:
-            tamama.salud = 100
-        if tamama.energia > 100:
-            tamama.energia = 100
-        if tamama.lleno > 100:
-            tamama.lleno = 100
-        if tamama.felicidad >= 100:
-            tamama.felicidad = 100
+        if self.salud > 100:
+            self.salud = 100
+        if self.energia > 100:
+            self.energia = 100
+        if self.lleno > 100:
+            self.lleno = 100
+        if self.felicidad >= 100:
+            self.felicidad = 100
+
+        if self.salud < 0:
+            self.salud = 0
+        if self.energia < 0:
+            self.energia = 0
+        if self.lleno < 0:
+            self.lleno = 0
+        if self.felicidad < 0:
+            self.felicidad = 0
            
 acti = True
 tamama = gochi()
+golpe = 0
 while acti:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -111,20 +149,21 @@ while acti:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             tamama.comer()
             tamama.dormir()
+            tamama.jugar()
             tamama.limite()
-            print(tamama.lleno, tamama.felicidad)
+            print(tamama.salud, tamama.energia, tamama.lleno, tamama.felicidad)
     screen.fill((255,255,255))
 
        
 
     boton=pygame.draw.circle(screen, red,(m,n), 20)
     boton1=pygame.draw.circle(screen, blue,(az,azo), 20)
+    boton2=pygame.draw.circle(screen, green,(ad,do), 20)
     pygame.draw.rect(screen, (0, 0, 0), [9, 9, 102, 12])
     pygame.draw.rect(screen, (0, 0, 0), [9, 29, 102, 12])
     pygame.draw.rect(screen, (0, 0, 0), [9, 49, 102, 12])
     pygame.draw.rect(screen, (0, 0, 0), [9, 69, 102, 12])
-   
- 
+
     pygame.draw.rect(screen, (0,255,0), [10, 10, tamama.salud, 10])
     pygame.draw.rect(screen, (0, 128, 128), [10, 30, tamama.energia, 10])
     pygame.draw.rect(screen, (128, 128, 128), [10, 50, tamama.lleno, 10])
@@ -138,3 +177,7 @@ while acti:
     screen.blit(personaje2,(x,y))
     pygame.display.update()
     reloj.tick(a)
+    golpe += 1
+    if golpe == 3:
+        golpe = 0
+        tamama.salud -=10
