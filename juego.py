@@ -19,6 +19,7 @@ pelota2=pygame.image.load('pelota2.jpg')
 pelota3=pygame.image.load('pelota3.jpg')
 
 
+
 #ubicacion personaje
 x= 130
 y= 140
@@ -28,8 +29,8 @@ red=(205,30,0)
 red_on= (250,40,1)
 blue=(0,0,205)
 blue_on=(135, 206, 250)
-green=(99,199,87)
-green_on=(68,245,49)
+gold=(255, 215, 0)
+gold_on=(218, 165, 32)
 
 
 #boton
@@ -75,7 +76,7 @@ class gochi:
 
     def jugar(self):
         if boton2.collidepoint (pygame.mouse.get_pos()):
-            pygame.draw.circle(screen,(green_on),(ad,do),20)
+            pygame.draw.circle(screen,(gold_on),(ad,do),20)
         if boton2.collidepoint (pygame.mouse.get_pos()) and self.energia > 10:
             screen.blit(pelota1,(x,y+5))
             pygame.display.update()
@@ -91,10 +92,11 @@ class gochi:
             reloj.tick(a+2)
             pygame.display.update()
             reloj.tick(a+2)
-
+            
             self.energia -= 10
             self.felicidad += 20
-        
+            self.lleno -=10
+
 
     def dormir(self):
         if boton1.collidepoint (pygame.mouse.get_pos()):
@@ -111,7 +113,8 @@ class gochi:
                 pygame.display.update()
                 musica.mimir_sound()
                
-                self.energia += 25
+                self.energia += 35
+                self.lleno -= 10
        
 
     def limite(self):
@@ -158,16 +161,16 @@ while acti:
 
     boton=pygame.draw.circle(screen, red,(m,n), 20)
     boton1=pygame.draw.circle(screen, blue,(az,azo), 20)
-    boton2=pygame.draw.circle(screen, green,(ad,do), 20)
+    boton2=pygame.draw.circle(screen, gold,(ad,do), 20)
     pygame.draw.rect(screen, (0, 0, 0), [9, 9, 102, 12])
     pygame.draw.rect(screen, (0, 0, 0), [9, 29, 102, 12])
     pygame.draw.rect(screen, (0, 0, 0), [9, 49, 102, 12])
     pygame.draw.rect(screen, (0, 0, 0), [9, 69, 102, 12])
 
     pygame.draw.rect(screen, (0,255,0), [10, 10, tamama.salud, 10])
-    pygame.draw.rect(screen, (0, 128, 128), [10, 30, tamama.energia, 10])
-    pygame.draw.rect(screen, (128, 128, 128), [10, 50, tamama.lleno, 10])
-    pygame.draw.rect(screen, (50,0,255), [10, 70, tamama.felicidad, 10])
+    pygame.draw.rect(screen, (0, 191, 255), [10, 30, tamama.energia, 10])
+    pygame.draw.rect(screen, (178, 34, 34), [10, 50, tamama.lleno, 10])
+    pygame.draw.rect(screen, (255, 215, 0), [10, 70, tamama.felicidad, 10])
 
     pygame.display.flip()    
    
@@ -178,6 +181,10 @@ while acti:
     pygame.display.update()
     reloj.tick(a)
     golpe += 1
-    if golpe == 3:
+    if golpe == 10:
         golpe = 0
-        tamama.salud -=10
+        tamama.lleno -=10
+        tamama.energia -=5
+        tamama.felicidad -=5
+    if tamama.lleno < 10:
+        tamama.salud -= 5    
