@@ -9,6 +9,7 @@ a= 0.9
 #importar imagenes
 personaje= pygame.image.load('personaje.jpg')
 personaje2= pygame.image.load('personaje2.jpg')
+personaje_sad= pygame.image.load('personaje_sad.jpg')
 comer1=pygame.image.load('spriteC1.jpg')
 comer2=pygame.image.load('spriteC2.jpg')
 dormir1=pygame.image.load('dormir_1.jpg')
@@ -17,6 +18,7 @@ dormir3=pygame.image.load('dormir_3.jpg')
 pelota1=pygame.image.load('pelota1.jpg')
 pelota2=pygame.image.load('pelota2.jpg')
 pelota3=pygame.image.load('pelota3.jpg')
+muerto=pygame.image.load('muerto.jpg')
 
 
 
@@ -135,6 +137,24 @@ class gochi:
             self.lleno = 0
         if self.felicidad < 0:
             self.felicidad = 0
+
+    def muriendo(self):
+        if self.salud < 10:
+            screen.blit(personaje_sad,(x,y))
+            pygame.display.update()
+            reloj.tick(a)
+            screen.blit(personaje2,(x,y))
+            pygame.display.update()
+            reloj.tick(a)
+    
+    def game_over(self):
+        if self.salud < 0:
+            screen.blit(muerto,(x-20,y-20))
+            pygame.display.update()
+            reloj.tick(0.05)
+            
+            return False
+
            
 acti = True
 tamama = gochi()
@@ -148,12 +168,13 @@ while acti:
                 actu.write(f"{tamama.lleno}\n")
                 actu.write(f"{tamama.felicidad}\n")
                 acti = False    
-   
+
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             tamama.comer()
             tamama.dormir()
             tamama.jugar()
             tamama.limite()
+            
             print(tamama.salud, tamama.energia, tamama.lleno, tamama.felicidad)
     screen.fill((255,255,255))
 
@@ -180,11 +201,15 @@ while acti:
     screen.blit(personaje2,(x,y))
     pygame.display.update()
     reloj.tick(a)
+
     golpe += 1
-    if golpe == 10:
+    if golpe == 2:
         golpe = 0
         tamama.lleno -=10
         tamama.energia -=5
         tamama.felicidad -=5
     if tamama.lleno < 10:
-        tamama.salud -= 5    
+        tamama.salud -= 5
+    tamama.muriendo()
+    if tamama.game_over() == False:
+        acti = False
