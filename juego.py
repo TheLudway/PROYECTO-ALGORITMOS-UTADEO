@@ -1,6 +1,6 @@
 import pygame, random, time, musica
 pygame.init()
-
+"""Crear ventana, reloj y display"""
 tama = (400, 460)
 screen = pygame.display.set_mode(tama)
 reloj = pygame.time.Clock()
@@ -45,6 +45,7 @@ ad= 300
 do= 410
 class gochi:
     def __init__(self):
+        """Cargar datos desde el archivo .txt"""
         with open("datos.txt", "r") as dato:
             self.salud = int(dato.readline())
             self.energia = int(dato.readline())
@@ -54,11 +55,12 @@ class gochi:
 
     def comer(self):
         if boton.collidepoint (pygame.mouse.get_pos()):
+            """Botón en la parte inferior de la pantalla"""
             pygame.draw.circle(screen,(red_on),(m,n),20)
         if boton.collidepoint (pygame.mouse.get_pos()):
-            musica.comer_sound()
-            screen.blit(comer1,(x,y+5))
-            pygame.display.update()
+            musica.comer_sound() # Reproduce el sonido de comer
+            screen.blit(comer1,(x,y+5)) 
+            pygame.display.update() # Hace que la imagen cambie
             reloj.tick(a)
             screen.blit(comer2,(x,y+5))
             pygame.display.update()
@@ -72,7 +74,7 @@ class gochi:
             screen.blit(comer2,(x,y+5))
             pygame.display.update()
             
-                       
+            # Actualiza datos del personaje después de la acción de comer          
             self.salud +=10  
             self.lleno += 40
             self.felicidad += 5
@@ -81,6 +83,7 @@ class gochi:
         if boton2.collidepoint (pygame.mouse.get_pos()):
             pygame.draw.circle(screen,(gold_on),(ad,do),20)
         if boton2.collidepoint (pygame.mouse.get_pos()) and self.energia > 10:
+            """Valida si la energía es mayor a 10 para poder jugar y reproduce todas las acciones"""
             screen.blit(pelota1,(x,y+5))
             pygame.display.update()
             reloj.tick(a)
@@ -96,6 +99,7 @@ class gochi:
             pygame.display.update()
             reloj.tick(a+2)
             
+            # Actualiza las estadísticas del personaje
             self.energia -= 10
             self.felicidad += 20
             self.lleno -=10
@@ -121,6 +125,7 @@ class gochi:
        
 
     def limite(self):
+        """Máximo y mínimo de estadísticas que puede llegar el personaje"""
         if self.salud > 100:
             self.salud = 100
         if self.energia > 100:
@@ -140,6 +145,7 @@ class gochi:
             self.felicidad = 0
 
     def muriendo(self):
+        """Cambia el estado del personaje a partir de que la salud sea menor a 10"""
         if self.salud < 10:
             screen.blit(personaje_sad,(x,y))
             pygame.display.update()
@@ -149,6 +155,7 @@ class gochi:
             reloj.tick(a)
     
     def game_over(self):
+        """Cuando la salud es menor a 0 el personaje muere"""
         if self.salud < 0:
             screen.blit(muerto,(x-20,y-20))
             pygame.display.update()
@@ -163,6 +170,8 @@ golpe = 0
 while acti:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            """Cuando se cierra la ventana del juego reescribe los datos del
+            personaje en el archivo .txt"""
             with open("datos.txt", "w+") as actu:
                 actu.write(f"{tamama.salud}\n")
                 actu.write(f"{tamama.energia}\n")
@@ -171,6 +180,7 @@ while acti:
                 acti = False    
 
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            """Ejecuta las funciones cuando el boton izquierdo del mouse se preciona"""
             tamama.comer()
             tamama.dormir()
             tamama.jugar()
@@ -180,7 +190,7 @@ while acti:
     screen.fill((255,255,255))
 
        
-
+    """Dibuja en la pantalla figuras geométricas"""
     boton=pygame.draw.circle(screen, red,(m,n), 20)
     boton1=pygame.draw.circle(screen, blue,(az,azo), 20)
     boton2=pygame.draw.circle(screen, gold,(ad,do), 20)
@@ -202,7 +212,7 @@ while acti:
     screen.blit(personaje2,(x,y))
     pygame.display.update()
     reloj.tick(a)
-
+    
     golpe += 1
     if golpe == 2:
         golpe = 0
