@@ -6,15 +6,15 @@ screen = pygame.display.set_mode(tama)
 reloj = pygame.time.Clock()
 a= 0.9
 
-#importar imagenes
-personaje= pygame.image.load('personaje.jpg')
-personaje2= pygame.image.load('personaje2.jpg')
-personaje_sad= pygame.image.load('personaje_sad.jpg')
+#importar imagenes 
+personaje= pygame.image.load('cabocommon.jpg')
+personaje2= pygame.image.load('cabocommon2.jpg')
+personaje_sad= pygame.image.load('cabosad.jpg')
 comer1=pygame.image.load('spriteC1.jpg')
 comer2=pygame.image.load('spriteC2.jpg')
-dormir1=pygame.image.load('dormir_1.jpg')
-dormir2=pygame.image.load('dormir_2.jpg')
-dormir3=pygame.image.load('dormir_3.jpg')
+dormir1=pygame.image.load('cabosleep.jpg')
+dormir2=pygame.image.load('cabosleep2.jpg')
+dormir3=pygame.image.load('cabosleep3.jpg')
 pelota1=pygame.image.load('pelota1.jpg')
 pelota2=pygame.image.load('pelota2.jpg')
 pelota3=pygame.image.load('pelota3.jpg')
