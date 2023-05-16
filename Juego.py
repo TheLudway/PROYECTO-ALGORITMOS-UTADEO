@@ -15,9 +15,9 @@ comer2=pygame.image.load('spriteC2.jpg')
 dormir1=pygame.image.load('cabosleep.jpg')
 dormir2=pygame.image.load('cabosleep2.jpg')
 dormir3=pygame.image.load('cabosleep3.jpg')
-pelota1=pygame.image.load('pelota1.jpg')
-pelota2=pygame.image.load('pelota2.jpg')
-pelota3=pygame.image.load('pelota3.jpg')
+pelota1=pygame.image.load('Pelota1.jpg')
+pelota2=pygame.image.load('Pelota2.jpg')
+pelota3=pygame.image.load('Pelota3.jpg')
 muerto=pygame.image.load('muerto.jpg')
 
 #para colores
