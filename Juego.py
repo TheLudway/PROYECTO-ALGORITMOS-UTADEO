@@ -9,7 +9,7 @@ a= 0.9
 #importar imagenes 
 personaje= pygame.image.load('cabocommon.jpg')
 personaje2= pygame.image.load('cabocommon2.jpg')
-personaje_sad= pygame.image.load('cabosad.jpg')
+personaje_sad= pygame.image.load('almostdead.jpg')
 comer1=pygame.image.load('spriteC1.jpg')
 comer2=pygame.image.load('spriteC2.jpg')
 dormir1=pygame.image.load('cabosleep.jpg')
